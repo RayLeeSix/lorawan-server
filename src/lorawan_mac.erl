@@ -292,7 +292,9 @@ check_link_fcnt(DevAddr, FCnt) ->
                     lorawan_utils:throw_warning({node, DevAddr}, {uplinks_lost, N-1}),
                     {ok, new, L#link{fcntup = fcnt32_inc(L#link.fcntup, N)}};
                 _BigN ->
-                    {error, {fcnt_gap_too_large, FCnt}}
+                    lorawan_utils:throw_warning({node, DevAddr}, {fcnt_gap_too_large, FCnt}),
+                    {ok, new, L#link{fcntup = fcnt32_inc(L#link.fcntup, N)}};
+                   %  {error, {fcnt_gap_too_large, FCnt}}
             end;
         [L] ->
             % strict 16-bit (default)
@@ -303,7 +305,9 @@ check_link_fcnt(DevAddr, FCnt) ->
                     lorawan_utils:throw_warning({node, DevAddr}, {uplinks_lost, N-1}),
                     {ok, new, L#link{fcntup = FCnt}};
                 _BigN ->
-                    {error, {fcnt_gap_too_large, FCnt}}
+                    lorawan_utils:throw_warning({node, DevAddr}, {fcnt_gap_too_large, FCnt}),
+                    {ok, new, L#link{fcntup = FCnt}};
+                   % {error, {fcnt_gap_too_large, FCnt}}
             end
     end.
 
