@@ -13,8 +13,8 @@
 -export([binary_to_hex/1, hex_to_binary/1]).
 % for unit testing
 -export([reverse/1, cipher/5, b0/4]).
-
--define(MAX_FCNT_GAP, 16384).
+%MAX_FCNT_GAP, 16384
+-define(MAX_FCNT_GAP, 65535).
 
 -include_lib("lorawan_server_api/include/lorawan_application.hrl").
 -include("lorawan.hrl").
@@ -292,9 +292,7 @@ check_link_fcnt(DevAddr, FCnt) ->
                     lorawan_utils:throw_warning({node, DevAddr}, {uplinks_lost, N-1}),
                     {ok, new, L#link{fcntup = fcnt32_inc(L#link.fcntup, N)}};
                 _BigN ->
-                    lorawan_utils:throw_warning({node, DevAddr}, {fcnt_gap_too_large, FCnt}),
-                    {ok, new, L#link{fcntup = fcntup}}
-                   %  {error, {fcnt_gap_too_large, FCnt}}
+                    {error, {fcnt_gap_too_large, FCnt}}
             end;
         [L] ->
             % strict 16-bit (default)
@@ -305,9 +303,7 @@ check_link_fcnt(DevAddr, FCnt) ->
                     lorawan_utils:throw_warning({node, DevAddr}, {uplinks_lost, N-1}),
                     {ok, new, L#link{fcntup = FCnt}};
                 _BigN ->
-                    lorawan_utils:throw_warning({node, DevAddr}, {fcnt_gap_too_large, FCnt}),
-                    {ok, new, L#link{fcntup = FCnt}}
-                   % {error, {fcnt_gap_too_large, FCnt}}
+                    {error, {fcnt_gap_too_large, FCnt}}
             end
     end.
 
