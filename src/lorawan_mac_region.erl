@@ -44,8 +44,9 @@ rx1_rf(<<"AU915-928">> = Region, RxQ, Offset) ->
     RxCh = f2ch(RxQ#rxq.freq, {9152, 2}, {9159, 16}),
     rf_same(Region, RxQ, ch2f(Region, RxCh rem 8), Offset);
 rx1_rf(<<"CN470-510">> = Region, RxQ, Offset) ->
-    RxCh = f2ch(RxQ#rxq.freq, {4703, 2}),
-    rf_same(Region, RxQ, ch2f(Region, RxCh rem 48), Offset).
+    %RxCh = f2ch(RxQ#rxq.freq, {4703, 2}),
+    %rf_same(Region, RxQ, ch2f(Region, RxCh rem 48), Offset).
+    rf_same(Region, RxQ, RxQ#rxq.freq, Offset).
 
 rx2_rf(<<"US902-928-PR">> = Region, RxQ) ->
     RxCh = f2ch(RxQ#rxq.freq, {9023, 2}, {9030, 16}),
