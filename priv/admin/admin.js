@@ -262,7 +262,8 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
             .validation({ required: true, pattern: '[A-Fa-f0-9]{16}' }),
         nga.field('region', 'choice')
             .choices(region_choices)
-            .validation({ required: true }),
+            .validation({ required: true })
+            .defaultValue('CN470-510'),
         nga.field('app', 'reference').label('Application')
             .targetEntity(applications)
             .targetField(nga.field('name'))
@@ -274,10 +275,11 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
             .validation({ required: true, pattern: '[A-Fa-f0-9]{16}' }),
         nga.field('appkey').label('AppKey')
             .attributes({ placeholder: 'e.g. FEDCBA9876543210FEDCBA9876543210' })
-            .validation({ required: true, pattern: '[A-Fa-f0-9]{32}' }),
+            .validation({ required: true, pattern: '[A-Fa-f0-9]{32}' })
+            .defaultValue('11111111111111111111111111111111'), // 11111111111111111111111111111111
         nga.field('fcnt_check', 'choice').label('FCnt Check')
             .choices(fcnt_choices)
-            .defaultValue(0), // Strict 16-bit
+            .defaultValue(3), // Strict Disable fcnt
         nga.field('txwin', 'choice').label('TX Window')
             .choices(txwin_choices)
             .defaultValue(0), // Auto
