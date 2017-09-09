@@ -43,7 +43,8 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
         { value: 0, label: 'Strict 16-bit' },
         { value: 1, label: 'Strict 32-bit' },
         { value: 2, label: 'Reset on zero' },
-        { value: 3, label: 'Disabled' }
+        { value: 3, label: 'Disabled' },
+        { value: 4, label: 'ERROR' }
     ];
 
     txwin_choices = [
@@ -212,6 +213,7 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
             .attributes({ placeholder: 'e.g. ABC12345' })
             .validation({ required: true, pattern: '[A-Fa-f0-9]{8}' }),
         nga.field('region', 'choice')
+            .defaultValue('CN470-510')
             .choices(region_choices)
             .validation({ required: true }),
         nga.field('app', 'reference').label('Application')
@@ -271,6 +273,7 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
         nga.field('appid').label('Group'),
         nga.field('appargs').label('Arguments'),
         nga.field('appeui').label('AppEUI')
+            .defaultValue('11111111111111111111111111111111')
             .attributes({ placeholder: 'e.g. 0123456789ABCDEF' })
             .validation({ required: true, pattern: '[A-Fa-f0-9]{16}' }),
         nga.field('appkey').label('AppKey')
@@ -351,6 +354,7 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
             .attributes({ placeholder: 'e.g. ABC12345' })
             .validation({ required: true, pattern: '[A-Fa-f0-9]{8}' }),
         nga.field('region', 'choice')
+            .defaultValue('CN470-510')
             .choices(region_choices)
             .validation({ required: true }),
         nga.field('app', 'reference').label('Application')
@@ -360,9 +364,11 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
         nga.field('appid').label('Group'),
         nga.field('appargs').label('Arguments'),
         nga.field('nwkskey').label('NwkSKey')
+            .defaultValue('11111111111111111111111111111111')
             .attributes({ placeholder: 'e.g. FEDCBA9876543210FEDCBA9876543210' })
             .validation({ required: true, pattern: '[A-Fa-f0-9]{32}' }),
         nga.field('appskey').label('AppSKey')
+            .defaultValue('11111111111111111111111111111111')
             .attributes({ placeholder: 'e.g. FEDCBA9876543210FEDCBA9876543210' })
             .validation({ required: true, pattern: '[A-Fa-f0-9]{32}' }),
         nga.field('fcntup', 'number').label('FCnt Up')
@@ -373,7 +379,7 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
             .validation({ required: true }),
         nga.field('fcnt_check', 'choice').label('FCnt Check')
             .choices(fcnt_choices)
-            .defaultValue(0), // Strict 16-bit
+            .defaultValue(3), // Strict 16-bit
         nga.field('txwin', 'choice').label('TX Window')
             .choices(txwin_choices)
             .defaultValue(0), // Auto
@@ -443,7 +449,7 @@ myApp.config(['NgAdminConfigurationProvider', function (nga) {
             .defaultValue(0), // Strict 16-bit
         nga.field('txwin', 'choice').label('TX Window')
             .choices(txwin_choices)
-            .defaultValue(0), // Auto
+            .defaultValue(3), // Auto
         nga.field('last_reset', 'datetime').label('Last Reset'),
         nga.field('last_rx', 'datetime').label('Last RX'),
         nga.field('last_mac', 'reference').label('Gateway')
